@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!--xacro:include filename="$(find robotiq_2f_140_gripper_visualization)/urdf/robotiq_arg2f_transmission.xacro" /-->
+
+
+
+  <xacro:macro name="extruder">
+
+    <link name="extruder_base">
+
+      <inertial>
+
+        <origin xyz="-0.000200000000003065 0.0199435877845359 0.0292245259211331" rpy="0 0 0" />
+
+        <mass value="0.00853198276973456" />
+
+        <inertia
+
+            ixx="2.89328108496468E-06"
+
+            ixy="-1.57935047237397E-19"
+
+            ixz="-1.93980378593255E-19"
+
+            iyy="1.86719750325683E-06"
+
+            iyz="-1.21858577871576E-06"
+
+            izz="1.21905238907251E-06" />
+
+      </inertial>
+
+      <visual>
+
+        <origin xyz="0 0 0" rpy="0 0 0" />
+
+        <geometry>
+
+          <mesh filename="file://$(find ur_description)/meshes/ur10/visual/extruder_visualisation.stl" />
+
+        </geometry>
+
+        <material name="">
+
+          <color rgba="0.8 0.8 0.8 1" />
+
+        </material>
+
+      </visual>
+
+      <collision>
+
+        <origin xyz="0 0 0" rpy="0 0 0" />
+
+        <geometry>
+
+          <mesh filename="file://$(find ur_description)/meshes/ur10/collision/extruder_collision.stl"/>
+
+        </geometry>
+
+      </collision>
+
+    </link>
+
+<joint name="extruder_tip" type="fixed">
+      <origin xyz="0.03661 0.04308 -0.12642" rpy="0 0 0"/>
+      <parent link="${prefix}ee_link"/>
+      <child link="extruder_tip_link"/>
+    </joint>
+
+    <link name="extruder_tip_link" />
+
+  </xacro:macro>
+
+</robot>
+
+

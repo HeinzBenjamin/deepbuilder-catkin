@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<!--
+License: Apache 2.0. See LICENSE file in root directory.
+Copyright(c) 2017 Intel Corporation. All Rights Reserved
+
+This is the URDF model for the Intel RealSense 430 camera, in it's
+aluminum peripherial evaluation case.
+-->
+
+<robot name="sensor_blackfly" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="sensor_blackfly" params="parent *origin prefix:=camera_array/cam0">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    
+    <!-- The following values model the aluminum peripherial case for the
+  	blackfly camera, with the camera joint represented by the actual 
+  	peripherial camera tripod mount -->
+    <xacro:property name="blackfly_cam_width" value="0.029"/>
+    <xacro:property name="blackfly_cam_height" value="0.042"/>
+    <xacro:property name="blackfly_cam_depth" value="0.029"/>
+    <xacro:property name="blackfly_cam_mount_from_center_offset_x" value="0.0"/>
+    <xacro:property name="blackfly_cam_mount_from_center_offset_y" value="0.0145"/>
+    <xacro:property name="blackfly_cam_mount_from_center_offset_z" value="0.002"/>
+
+    <material name="${prefix}aluminum">
+	  <color rgba="0.1 0.1 0.1 1"/>
+    </material>
+
+
+    <!-- camera body, with origin at bottom screw mount -->
+    <joint name="${prefix}_bottom_screw_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_bottom_screw_frame" />
+    </joint>
+
+    <link name="${prefix}_bottom_screw_frame"/>
+
+    <joint name="${prefix}_optical_joint" type="fixed">
+      <origin xyz="${blackfly_cam_mount_from_center_offset_x} ${blackfly_cam_mount_from_center_offset_y} ${blackfly_cam_mount_from_center_offset_z}" rpy="${M_PI/2} ${-M_PI/2} 0" />
+      <parent link="${prefix}_bottom_screw_frame"/>
+      <child link="${prefix}_optical_frame" />
+    </joint>
+
+    <link name="${prefix}_optical_frame">
+      <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://spinnaker_sdk_camera_driver/description/meshes/bfs_visualisation.stl" />
+        </geometry>
+        <material name="aluminum"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <!--mesh filename="package://spinnaker_sdk_camera_driver/description/meshes/bfs_simple.stl" /-->
+        <box size="0.04 0.04 0.04" />
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.3" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.000881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+  </xacro:macro>
+</robot>
