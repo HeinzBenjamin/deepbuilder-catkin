@@ -48,8 +48,8 @@
   <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
-  <!--sensor_d435 parent="ee_link" prefix="camera1"><origin xyz="0.0414 -0.04255 -0.02475" rpy="${-0.5*pi} 0.0 0.0"/></sensor_d435-->
-  <sensor_blackfly parent="ee_link" prefix="camera1"><origin xyz="0.0414 -0.028 -0.059975" rpy="${0.5*pi-0.02} 0.025 0.0"/></sensor_blackfly>
+  <sensor_blackfly parent="ee_link" prefix="camera1"><origin xyz="0.06 -0.02 -0.04" rpy="${0.5*pi+0.02} 0.03 0.0"/></sensor_blackfly>
+  <!--sensor_blackfly parent="ee_link" prefix="camera1"><origin xyz="0.0 -0.02 -0.04" rpy="${0.5*pi+0.024} 0.005 0.0"/></sensor_blackfly-->
   <!--sensor_blackfly parent="extruder_tip_link" prefix="camera1"><origin xyz="0 0 0" rpy="0 0 0"/></sensor_blackfly-->
   <sensor_d435 parent="ee_link" prefix="camera2"><origin xyz="0.06078 -0.1393 -0.02475" rpy="${-0.5*pi} 0.0 ${0.087*pi}"/></sensor_d435>
   
